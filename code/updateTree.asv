@@ -1,0 +1,36 @@
+function [ t n] = updateTree( t,rect,centroid,del_partion )
+%UNTITLED2 Summary of this function goes here
+%   Detailed explanation goes here
+ n=[];
+rect=[rect;rect(1,:)];
+parent=1;
+if(del_partion)
+    parent=del_partion;
+end
+
+for i=1:4
+
+    o=centroid;
+    a=rect(i,:);
+    b=rect(i+1,:);
+    oa=createLine(o,a );
+    ob=createLine(o,b);
+    be=parallelLine(ob,rect(i,:));
+    ae=parallelLine(oa,rect(i+1,:));
+    E = InterX(ae,be)
+    
+
+
+A=[
+round(centroid);
+round(rect(i,:));
+round(corner);
+round(rect(i+1,:));
+];
+
+[t n(i,:)]=t.addnode(parent,A);
+
+end
+
+end
+
