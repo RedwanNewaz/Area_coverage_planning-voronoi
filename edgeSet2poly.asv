@@ -1,0 +1,33 @@
+
+function poly=edgeSet2poly(edgeSet)
+Edges=sortEdge(edgeSet);
+poly=splitEdges(Edges,[],1);
+
+end
+
+
+function [p1,p2]=edge2point(e)
+    p1=e(1,1:2);
+    p2=e(1,3:4);
+end
+
+function [FP,LP]=splitEdges(edgeSet,FP,LP,count)
+    [p1,p2]=edge2point(edgeSet(count,:));
+    if(count<size(edgeSet,1))
+        poly=splitEdges(edgeSet,[poly;p1;p2],count+1);
+    end
+
+end
+
+function Edges=sortEdge(edgeSet)
+    e=edgeSet(1,:);
+    [p1,p2]=edge2point(e);
+    cost=distancePointEdge(p2, edgeSet);
+    cost(1)=-inf;
+    [r,I]=sort(cost);
+    Edges=[];
+    for ind=I
+        Edges=[Edges;edgeSet(ind,:)];
+    end
+
+end

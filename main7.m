@@ -1,4 +1,4 @@
-clear all;clc;clf;
+eeclear all;clc;clf;
 addpath dataSet voronoi functions
 load(sprintf('bestEllipse%d',1))
 %# simulation parameters

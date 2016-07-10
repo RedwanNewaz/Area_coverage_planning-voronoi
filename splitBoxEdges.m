@@ -40,7 +40,7 @@ for ll=cis'
     p2=restEdges(rc,3:4);
     p3=restEdges(rc,1:2);
     edge1=[ p1 p2];
-    edge2=[ p1 p3]
+    edge2=[ p1 p3];
     edges=[edges;edge1;edge2];
     rc=rc+1;
 end
