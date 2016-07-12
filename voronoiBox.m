@@ -1,6 +1,9 @@
 function [ px,py,ccE,ee ] = voronoiBox( vx,vy,bound )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%FUNCTIONS Summary 
+% createSetEdges
+% findBoxCorner
+% findIntersctPoints
+% shortenEdge
 hh=createSetEdges(vx,vy);
 ccE=findBoxCorner(bound);
 [px,py,ee]=findIntersctPoints(hh,ccE);
@@ -21,48 +24,54 @@ function cc=findBoxCorner(bound)
     cc=[c1;c2];
 end
 
+
 function [px,py,hh]=findIntersctPoints(hh,cc)
-    px=[];py=[];
-    updatedEdge=[];
-    index=1;
-    indexSet=[];
-    for h=hh'
-        
-       for c=cc'
-           point = intersectEdges(h', c');
-           if (~isnan(point))
-               %update that edge 
-               px=[px;point(1)];
-               py=[py;point(2)];
-               %find cycle in order to find voronoi region
-                updatedEdge=[updatedEdge;shortenEdge(cc,h',point)];
-                indexSet=[indexSet;index];
-           end
-       end
-%         updatedEdge=[updatedEdge;h'];
-       index=index+1;
-          
-    end
-    count=1;
-    for jj=indexSet'
-       hh(jj,:)= updatedEdge(count,:);
-       count=count+1;
-    end
+% find intesection points
+points=[];
+for c=cc'
+    intersect=intersectEdges(hh, c');
+    [m,n]=find(~isnan(intersect));
+     index=unique(m);
+     points=[points;intersect(index,:)];
 end
+% get the matrix of intesected points
+% p1    e1 e2 e3 e4 e5 e6 e7
+% p2    e1 e2 e3 e4 e5 e6 e7
+% p3    e1 e2 e3 e4 e5 e6 e7
+% p4    e1 e2 e3 e4 e5 e6 e7
+mat = isPointOnEdge(points, hh);
+
+%    shorten edge(s)
+inde=1;
+for rows=mat'
+   ndex=find(rows'==1); 
+   hh(ndex,:)=shortenEdge(cc,hh(ndex,:),points(inde,:));
+   inde=inde+1;
+end
+px=points(:,1);
+py=points(:,2);
+
+
+end
+
 
 function edge=shortenEdge(box,edge,point)
 P1=edge(1:2);
 P2=edge(3:4);
-poly=[];
-for edge=box'
-    e=reshape(edge',[2 2]);
-    poly=[poly;e];
+cc=[];
+
+for ee=box'
+    e=reshape(ee',[2 2]);
+    cc=[cc;e];
 end
-if( isPointInPolygon(P1, poly))
+
+if( isPointInPolygon(P1, cc))
    edge=[P1 point];
 else
-    edge=[point P2];    
+    edge=[point P2];
+
+end
+
 end
 
 
-end

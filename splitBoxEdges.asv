@@ -1,7 +1,7 @@
 function [ edges ] = splitBoxEdges( boxEdges,interSects )
 %FUNCTIONS 
-% addEdgeBox: get box edges w.r.t intersction points
-% duplicateEdgeRemove (center point based apporoach)
+% addEdgeBox: get box edges w.r.t intersction
+% duplicateEdgeRemove
 
 c=reshape(boxEdges,[size(boxEdges,1)*2,2]);
 cc=unique(c,'rows');

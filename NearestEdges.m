@@ -1,17 +1,33 @@
 function  memberEdges  = NearestEdges( point,edgeSet )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
+rmen=[];
+memberEdges=[];
+pointErr=sum(size(point)-[1 2]);
+if(pointErr)
+   error('point error')
+    return ;
+end
 
 edgeSet=duplicateEdgeRemove(1,edgeSet);
-memberEdges=[];
+
 for e=edgeSet'
    cp= edgeCenter(e');
    ref=[point,cp];
-   if(~MemberEdge(ref,edgeSet))
+   res=MemberEdge(ref,edgeSet);
+   rmen=[rmen;res];
+   if(res<1)
        memberEdges=[memberEdges;e'];
    end
 end
-% memberEdges=unique(memberEdges,'rows');
+
+
+
+if(isempty(memberEdges)||pointErr)
+  visulization.drawEdgeSet(edgeSet);
+  error('NearestEdge:memberEdges is empty... ') ;   
+end
+
 end
 
 function point=edgeCenter(e)
@@ -23,13 +39,14 @@ function count=MemberEdge(ref,edgeSet)
 % # at least 1 (itself)
 % # more than 1 is not a member
 count=-1;
-index=1;
 for e=edgeSet'
     point=intersectEdges(ref,e');
    if (~isnan(point))
        count=count+1;
    end
-    index=index+1;
+   if count>0
+       break;
+   end
 end
 
 end

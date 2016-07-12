@@ -1,6 +1,6 @@
 function [ vx,vy,x,y ] = area_partition( update)
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+%uniform sampling: If centroids are not available, 
+%Iteratively sampling: each update contains true poistion of source
 if nargin <1
     [x y]=randomCentroid();
 else 
