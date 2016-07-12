@@ -25,6 +25,13 @@ centroid_mask=[];
 ind=emin(centroids ,robot,centroid_mask );
 centroid_mask=[centroid_mask;ind];
 
+%%
+% subplot(2,3,4)
+for kk=1:length(partition)
+ center(kk,:)=wallFollowingSearch( partition(kk));
+end
+centroids=center;
+%%
 while (step<2)
 % update windows
 subplot(2,3,step+1)
