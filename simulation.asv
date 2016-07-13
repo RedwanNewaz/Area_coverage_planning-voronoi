@@ -1,0 +1,22 @@
+function  simulation( parm_args )
+%PLOT1 show partition, robot, goal, traj
+% robot--> triangle
+% goal -->circle
+% Traj --> blue line
+%  patrtion -->colored lines
+% PLOT2 show explored map   
+subplot(1,2,1)
+hold on
+viz.partition(parm_args.part);
+plot(parm_args.robot(1),parm_args.robot(2),'^','LineWidth',2)
+plot(parm_args.goal(1),parm_args.goal(2),'^','LineWidth',2)
+comet(parm_args.(1))
+
+axis(window)
+subplot(1,2,2)
+
+
+axis(window)
+
+end
+

@@ -1,0 +1,10 @@
+function  sim( parm_args )
+%PLOT 1 
+%   Detailed explanation goes here
+subplot(1,2,1)
+
+
+subplot(1,2,2)
+
+end
+

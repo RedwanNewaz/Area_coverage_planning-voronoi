@@ -11,7 +11,7 @@ subplot(2,3,step)
 bound=[1 50 1 50];
 window=[-10 60 -10 60];
 partition = vornoiPartition( bound);
-viz.partition(partition);
+visulization.partition(partition);
 axis(window)
 %%
 centroids=[];
@@ -26,7 +26,7 @@ ind=emin(centroids ,robot,centroid_mask );
 centroid_mask=[centroid_mask;ind];
 
 %%
-% subplot(2,3,4)
+subplot(2,3,4)
 for kk=1:length(partition)
  center(kk,:)=wallFollowingSearch( partition(kk),kk);
 end
@@ -60,7 +60,7 @@ step=step+1;
 % plot(x,y,'r+',vx,vy,'b-')
 partition = vornoiPartition( bound,centroids);
 subplot(2,3,step+2);
-viz.partition(partition);
+visulization.partition(partition);
 %move to next candidate
 ind=3;
 end

@@ -30,9 +30,11 @@ for tp=centroids'
     memberEdges  = NearestEdges( tp',hh );
     [PolyX,PolyY]=edgeSet2poly(memberEdges);
 % update partition
-    partition(i).center=tp';
+%     partition(i).center=tp';
     partition(i).mX=PolyX;
     partition(i).mY=PolyY;
+    [POLY, center]=partition2poly(partition(i));
+     partition(i).center=center;
     i=i+1;
 end
 
