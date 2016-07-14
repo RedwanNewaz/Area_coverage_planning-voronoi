@@ -7,6 +7,7 @@ for p=traj'
    map(p(2),p(1))=1; 
 end
 robot=traj(size(traj,1),:);
+count=0;
 if(ind)
    ellip=parm.rois(ind,:);
    n=length(map);
@@ -14,9 +15,12 @@ if(ind)
        for y=1:n
             if(isPointInEllipse([x,y],ellip))
                map(y,x)=1; 
+               count=count+1;
             end
        end
    end
 end
+
+count
 end
 

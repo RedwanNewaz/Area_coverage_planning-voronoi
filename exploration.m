@@ -12,9 +12,9 @@ for ii=1:length(part)
     A(ii,:) =ratio* abs(polygonArea(POLY));
 
 end
-
-cost=A./norm(A)+D./norm(D)
-[m,ind]=min(cost)
+% cost=A./norm(A)+D./norm(D)
+cost=A./norm(A);
+[m,ind]=max(cost);
 goal=part(ind).center;
 
 

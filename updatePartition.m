@@ -2,7 +2,7 @@ function centroids=updatePartition(part,indxSet,rois)
 %UNTITLED11 Summary of this function goes here
 %   Detailed explanation goes here
 centroids=cell2mat({part(:).center}');
-if(indxSet)    
+if(indxSet)  
 acntr=rois(indxSet,1:2);
 centroids=sortCandidate(acntr,centroids);
 end

@@ -33,6 +33,13 @@ classdef viz
             hold on
            drawPolygon(POLY,'color',viz.color(kk)); 
         end
+        
+        function drawEllipses(ellipses)
+           hold on
+           for e=ellipses'
+           drawEllipse(e');
+           end
+        end
 
     end
     
