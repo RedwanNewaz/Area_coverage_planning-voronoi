@@ -17,7 +17,6 @@ for i=1:n
 end
 unexploredCells=[robot;unexploredCells];
 [path, ind] = solveTSP( unexploredCells);
-'search path computed'
 [Found,pathIndex,roiIndex]=intersectROI(path,rois,1,1);
 path=path(1:pathIndex,:);
 if(~Found)

@@ -2,29 +2,26 @@ run('init')
 %%
 sim_par.part = vornoiPartition( bound);
 
-while(step<5)
+while(step<10)
 sim_par.goal=exploration(sim_par.part,sim_par.robot,sim_par.map );
 [sim_par.traj,indROI]=trajectory(sim_par.goal,sim_par.robot,sim_par.map,sim_par.rois);
-[sim_par.map,sim_par.robot]=updateMap(sim_par,indROI);
-
-sim_par.findROIs=[sim_par.findROIs;indROI];
+fprintf('%0.2f\t',sim_par.robot)
+disp('robot coordinate')
 if(isempty(indROI))
-    sim_view( sim_par,indROI );
-    indexPart = findPoint(sim_par.goal,cell2mat({sim_par.part(:).center}')); 
-    
+   indexPart = findPoint(sim_par.goal,cell2mat({sim_par.part(:).center}')); 
    [sim_par.traj,indROI]= localSearch( sim_par.part(indexPart),sim_par.map,sim_par.robot,sim_par.rois );
-   'Wall following ' 
+   disp('ROI search started.. ') 
    [sim_par.map,sim_par.robot]=updateMap(sim_par,indROI);
    sim_view( sim_par,indROI );
 else
-    newCentroids=updatePartition(sim_par.part,sim_par.findROIs,sim_par.rois);
+    disp('moving to voronoi centered.. ')
+    centroids=[centroids;sim_par.rois(indROI,1:2)];
+    newCentroids=updatePartition(sim_par.part,centroids);
     sim_par.part = vornoiPartition( bound,newCentroids);
+    [sim_par.map,sim_par.robot]=updateMap(sim_par,indROI);
     sim_view( sim_par,indROI );
     sim_par.rois(indROI,:)=[];
 end
-
-% pause(1)
 step=step+1;
-% sim_view( sim_par,indROI );
 
 end

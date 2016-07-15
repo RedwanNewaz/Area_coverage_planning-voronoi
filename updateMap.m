@@ -21,6 +21,5 @@ if(ind)
    end
 end
 
-count
 end
 

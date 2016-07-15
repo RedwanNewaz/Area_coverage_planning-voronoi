@@ -1,18 +1,23 @@
-function centroids=updatePartition(part,indxSet,rois)
+function centroids=updatePartition(part,act)
 %UNTITLED11 Summary of this function goes here
 %   Detailed explanation goes here
 centroids=cell2mat({part(:).center}');
-if(indxSet)  
-acntr=rois(indxSet,1:2);
-centroids=sortCandidate(acntr,centroids);
-end
+box=[1 50 1 50];
+if(~isempty(act))
+    centroids=sortCandidate(act,centroids);
+    fn=unique(centroids,'rows');
+    while(length(fn)<3)
+        centroids=sortCandidate(act,randomPointInBox(box, 4));
+        fn=unique(centroids,'rows');
+    end
 end
 
-function centroids=sortCandidate(acntr,curr)
+end
+
+function centroids=sortCandidate(acntr,centroids)
     taken=[];
-    centroids=curr;
     for point=acntr'
-        ind=emin(curr,point',taken);
+        ind=emin(centroids,point',taken);
         taken=[taken;ind];
         centroids(ind,:)=point';
     end
